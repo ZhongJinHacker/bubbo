@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.grady.bubbo</groupId>
     <artifactId>bubbo-parent</artifactId>
@@ -10,9 +11,8 @@
     <relativePath>../bubbo-parent/pom.xml</relativePath>
   </parent>
 
-  <artifactId>bubbo-server</artifactId>
+  <artifactId>bubbo-common</artifactId>
   <version>1.0-SNAPSHOT</version>
-
   <packaging>jar</packaging>
 
   <dependencies>
@@ -21,33 +21,34 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
     </dependency>
-    <!-- Apache Commons Collections -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
-    </dependency>
-    <!-- CGLib -->
-    <dependency>
-      <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>sfl4j-log4j2</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>com.grady.bubbo</groupId>
-      <artifactId>bubbo-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
     </dependency>
-  </dependencies>
 
+    <dependency>
+      <groupId>com.dyuproject.protostuff</groupId>
+      <artifactId>protostuff-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.dyuproject.protostuff</groupId>
+      <artifactId>protostuff-runtime</artifactId>
+    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>io.protostuff</groupId>-->
+<!--      <artifactId>protostuff-core</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>io.protostuff</groupId>-->
+<!--      <artifactId>protostuff-runtime</artifactId>-->
+<!--    </dependency>-->
+
+  </dependencies>
 </project>

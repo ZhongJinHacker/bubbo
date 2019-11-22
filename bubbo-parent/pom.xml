@@ -7,6 +7,7 @@
   <groupId>com.grady.bubbo</groupId>
   <artifactId>bubbo-parent</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
   <name>bubbo-parent</name>
 
@@ -21,27 +22,22 @@
 
   <modules>
     <module>../bubbo-server</module>
+    <module>../bubbo-common</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
-      <!-- SLF4J -->
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>1.7.7</version>
-      </dependency>
       <!-- Spring -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>3.2.12.RELEASE</version>
+        <version>4.3.10.RELEASE</version>
       </dependency>
       <!-- Apache Commons Collections -->
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-collections4</artifactId>
-        <version>4.0</version>
+        <version>4.2</version>
       </dependency>
       <!-- CGLib -->
       <dependency>
@@ -56,6 +52,36 @@
         <version>1.18.2</version>
         <scope>provided</scope>
       </dependency>
+      <!-- netty -->
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.1.6.Final</version>
+      </dependency>
+
+      <!-- Protostuff -->
+      <dependency>
+        <groupId>com.dyuproject.protostuff</groupId>
+        <artifactId>protostuff-core</artifactId>
+        <version>1.0.8</version>
+      </dependency>
+      <dependency>
+        <groupId>com.dyuproject.protostuff</groupId>
+        <artifactId>protostuff-runtime</artifactId>
+        <version>1.0.8</version>
+      </dependency>
+<!--      <dependency>-->
+<!--        <groupId>io.protostuff</groupId>-->
+<!--        <artifactId>protostuff-core</artifactId>-->
+<!--        <version>1.6.0</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--        <groupId>io.protostuff</groupId>-->
+<!--        <artifactId>protostuff-runtime</artifactId>-->
+<!--        <version>1.6.0</version>-->
+<!--      </dependency>-->
+
+
     </dependencies>
   </dependencyManagement>
 </project>
