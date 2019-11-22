@@ -5,7 +5,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -14,10 +13,11 @@ import java.util.List;
  */
 public class RpcDecoder<T> extends ByteToMessageDecoder {
 
+    private Class<?> clazz;
 
-    private Class<T> clazz =
-            (Class<T>) ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
+    public RpcDecoder(Class<?> clazz) {
+        this.clazz = clazz;
+    }
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
