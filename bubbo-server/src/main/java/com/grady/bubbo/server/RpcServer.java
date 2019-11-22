@@ -21,7 +21,6 @@ import java.util.Map;
  * @author gradyjiang
  * @Date 2019/11/21 - 下午3:30
  */
-@Slf4j
 public class RpcServer implements ApplicationContextAware, InitializingBean {
 
     /**
