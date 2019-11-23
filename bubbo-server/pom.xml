@@ -41,7 +41,6 @@
     <dependency>
       <groupId>com.grady.bubbo</groupId>
       <artifactId>bubbo-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

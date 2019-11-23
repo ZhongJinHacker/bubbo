@@ -24,6 +24,7 @@
     <module>../bubbo-server</module>
     <module>../bubbo-common</module>
     <module>../bubbo-registry</module>
+    <module>../bubbo-client</module>
   </modules>
 
   <dependencyManagement>
@@ -76,6 +77,18 @@
         <groupId>org.apache.zookeeper</groupId>
         <artifactId>zookeeper</artifactId>
         <version>3.4.6</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.grady.bubbo</groupId>
+        <artifactId>bubbo-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.grady.bubbo</groupId>
+        <artifactId>bubbo-registry</artifactId>
+        <version>${project.version}</version>
       </dependency>
 
     </dependencies>
