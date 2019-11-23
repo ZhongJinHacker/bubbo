@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/bubbo-common/bubbo-common.iml" filepath="$PROJECT_DIR$/bubbo-common/bubbo-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-parent/bubbo-parent.iml" filepath="$PROJECT_DIR$/bubbo-parent/bubbo-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bubbo-registry/bubbo-registry.iml" filepath="$PROJECT_DIR$/bubbo-registry/bubbo-registry.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-server/bubbo-server.iml" filepath="$PROJECT_DIR$/bubbo-server/bubbo-server.iml" />
     </modules>
   </component>

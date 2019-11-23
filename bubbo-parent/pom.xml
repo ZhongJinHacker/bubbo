@@ -23,6 +23,7 @@
   <modules>
     <module>../bubbo-server</module>
     <module>../bubbo-common</module>
+    <module>../bubbo-registry</module>
   </modules>
 
   <dependencyManagement>
@@ -69,6 +70,12 @@
         <groupId>com.dyuproject.protostuff</groupId>
         <artifactId>protostuff-runtime</artifactId>
         <version>1.0.8</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.zookeeper</groupId>
+        <artifactId>zookeeper</artifactId>
+        <version>3.4.6</version>
       </dependency>
 
     </dependencies>
