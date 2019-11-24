@@ -2,6 +2,7 @@ package com.grady.bubbo.registry;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import java.util.Arrays;
 
@@ -17,9 +18,10 @@ public class ServiceDiscoveryTest {
     }
 
     @Test
-    public void discover() {
-
-        discovery.startWatchNodes(Arrays.asList("com.grady.WorldService", "com.grady.HelloService"));
+    public void discover() throws Exception {
+        Whitebox.invokeMethod(discovery,
+                "startWatchNodes",
+                Arrays.asList("com.grady.WorldService", "com.grady.HelloService"));
 
         String address = discovery.discover("com.grady.WorldService");
         System.out.println("address: " + address);

@@ -27,6 +27,7 @@
     <module>../bubbo-common</module>
     <module>../bubbo-registry</module>
     <module>../bubbo-client</module>
+    <module>../bubbo-all</module>
   </modules>
 
   <dependencyManagement>
@@ -83,6 +84,12 @@
 
       <dependency>
         <groupId>com.grady.bubbo</groupId>
+        <artifactId>bubbo-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.grady.bubbo</groupId>
         <artifactId>bubbo-common</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -90,6 +97,12 @@
       <dependency>
         <groupId>com.grady.bubbo</groupId>
         <artifactId>bubbo-registry</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.grady.bubbo</groupId>
+        <artifactId>bubbo-server</artifactId>
         <version>${project.version}</version>
       </dependency>
 

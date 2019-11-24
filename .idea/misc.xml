@@ -7,6 +7,8 @@
         <option value="$PROJECT_DIR$/bubbo-parent/pom.xml" />
         <option value="$PROJECT_DIR$/bubbo-common/pom.xml" />
         <option value="$PROJECT_DIR$/dubbo-registry/pom.xml" />
+        <option value="$PROJECT_DIR$/bubbo-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/bubbo-all/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

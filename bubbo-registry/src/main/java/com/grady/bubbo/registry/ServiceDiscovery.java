@@ -44,7 +44,7 @@ public class ServiceDiscovery implements ApplicationContextAware {
      * 开始监听
      * @param interfaceNames
      */
-    public void startWatchNodes(List<String> interfaceNames) {
+    private void startWatchNodes(List<String> interfaceNames) {
         ZooKeeper zk = connectServer();
         for (String interfaceName : interfaceNames) {
             watchNode(zk, interfaceName);
@@ -54,6 +54,7 @@ public class ServiceDiscovery implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         //TODO: 找到所有@RpcReference 的引用对象，然后调用开始监听
+
     }
 
     /**
