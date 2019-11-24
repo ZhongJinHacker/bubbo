@@ -1,13 +1,19 @@
 package com.grady.bubbo.registry;
 
+import com.grady.bubbo.common.constants.ErrorCode;
+import com.grady.bubbo.common.exceptions.BubboException;
+import org.apache.commons.lang.StringUtils;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,14 +21,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author gradyjiang
  * @Date 2019/11/23 - 下午5:35
  */
-public class ServiceDiscovery {
+public class ServiceDiscovery implements ApplicationContextAware {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(ServiceDiscovery.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceDiscovery.class);
 
     private CountDownLatch latch = new CountDownLatch(1);
 
-    private volatile List<String> dataList = new ArrayList<String>();
+    private Map<String, List<String>> interfaceNodeMap = new ConcurrentHashMap<>();
 
     private String registryAddress;
 
@@ -33,32 +38,44 @@ public class ServiceDiscovery {
      */
     public ServiceDiscovery(String registryAddress) {
         this.registryAddress = registryAddress;
-
-        ZooKeeper zk = connectServer();
-        if (zk != null) {
-            watchNode(zk);
-        }
     }
 
     /**
-     * 发现新节点
-     *
+     * 开始监听
+     * @param interfaceNames
+     */
+    public void startWatchNodes(List<String> interfaceNames) {
+        ZooKeeper zk = connectServer();
+        for (String interfaceName : interfaceNames) {
+            watchNode(zk, interfaceName);
+        }
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        //TODO: 找到所有@RpcReference 的引用对象，然后调用开始监听
+    }
+
+    /**
+     * 找节点
+     * @param interfaceName
      * @return
      */
-    public String discover() {
-        String data = null;
-        int size = dataList.size();
-        // 存在新节点，使用即可
-        if (size > 0) {
-            if (size == 1) {
-                data = dataList.get(0);
-                LOGGER.debug("using only data: {}", data);
+    public synchronized String discover(String interfaceName) {
+        String address = null;
+        List<String> addressList = Optional.ofNullable(interfaceNodeMap.get(interfaceName)).orElse(Collections.emptyList()) ;
+        if (!addressList.isEmpty()) {
+            if (addressList.size() == 1) {
+                address = addressList.get(0);
             } else {
-                data = dataList.get(ThreadLocalRandom.current().nextInt(size));
-                LOGGER.debug("using random data: {}", data);
+                address = addressList.get(ThreadLocalRandom.current().nextInt(addressList.size()));
             }
         }
-        return data;
+
+        if (StringUtils.isEmpty(address)) {
+            throw new BubboException(ErrorCode.CREATE_FAIL, "找不到对应的节点");
+        }
+        return address;
     }
 
     /**
@@ -81,42 +98,43 @@ public class ServiceDiscovery {
             latch.await();
         } catch (Exception e) {
             LOGGER.error("", e);
+            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "ServiceDiscovery 连接Zookeeper失败");
+        }
+        if (zk == null) {
+            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "ServiceDiscovery 连接Zookeeper失败");
         }
         return zk;
     }
 
     /**
-     * 监听
-     *
+     * 监听节点变化
      * @param zk
+     * @param interfaceName
      */
-    private void watchNode(final ZooKeeper zk) {
+    private synchronized void watchNode(final ZooKeeper zk, String interfaceName) {
         try {
-            // 获取所有子节点
-            List<String> nodeList = zk.getChildren(Constant.ZK_REGISTRY_PATH,
+            final String nodePath = Constant.ZK_REGISTRY_PATH + "/" + interfaceName;
+            // 获取接口节点
+            List<String> dataNodeList = zk.getChildren(nodePath,
                     new Watcher() {
                         @Override
                         public void process(WatchedEvent event) {
-                            // 节点改变
-                            if (event.getType() == Event.EventType.NodeChildrenChanged) {
-                                watchNode(zk);
+                            if (event.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+                                watchNode(zk, interfaceName);
                             }
                         }
                     });
-            List<String> dataList = new ArrayList<String>();
-            // 循环子节点
-            for (String node : nodeList) {
+            // 循环子节点，取得数据
+            List<String> dataList = new ArrayList<>();
+            for (String node : dataNodeList) {
                 // 获取节点中的服务器地址
-                byte[] bytes = zk.getData(Constant.ZK_REGISTRY_PATH + "/"
-                        + node, false, null);
-                // 存储到list中
+                byte[] bytes = zk.getData(nodePath + "/" + node, false, null);
                 dataList.add(new String(bytes));
             }
-            LOGGER.debug("node data: {}", dataList);
-            // 将节点信息记录在成员变量
-            this.dataList = dataList;
+            interfaceNodeMap.put(interfaceName, dataList);
         } catch (Exception e) {
             LOGGER.error("", e);
+            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "获取接口节点信息失败");
         }
     }
 }

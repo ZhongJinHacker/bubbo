@@ -46,10 +46,10 @@ public class ServiceRegistry {
             latch.await();
         } catch (Exception e) {
             LOGGER.error("", e);
-            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "连接Zookeeper失败");
+            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "ServiceRegistry连接Zookeeper失败");
         }
         if (zk == null) {
-            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "连接Zookeeper失败");
+            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "ServiceRegistry连接Zookeeper失败");
         }
         return zk;
     }

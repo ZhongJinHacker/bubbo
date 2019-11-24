@@ -94,6 +94,26 @@
       </dependency>
 
       <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>2.6</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.powermock</groupId>
+        <artifactId>powermock-module-junit4</artifactId>
+        <version>2.0.4</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- PowerMock Mockito2 API -->
+      <dependency>
+        <groupId>org.powermock</groupId>
+        <artifactId>powermock-api-mockito2</artifactId>
+        <version>2.0.4</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.11</version>
@@ -105,12 +125,6 @@
         <artifactId>spring-test</artifactId>
         <version>${springframework.version}</version>
         <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.6</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

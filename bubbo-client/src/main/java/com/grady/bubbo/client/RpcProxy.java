@@ -50,9 +50,7 @@ public class RpcProxy {
                         request.setParameterTypes(method.getParameterTypes());
                         request.setParameters(args);
                         //查找服务
-                        if (serviceDiscovery != null) {
-                            serverAddress = serviceDiscovery.discover();
-                        }
+                        serverAddress = serviceDiscovery.discover(method.getDeclaringClass().getName());
                         //随机获取服务的地址
                         String[] array = serverAddress.split(":");
                         String host = array[0];

@@ -17,14 +17,8 @@ public class ServiceRegistryTest {
     }
 
     @Test
-    public void registerServiceProvider() {
-        //registry.registerServiceProvider();
-
-    }
-
-    @Test
-    public void register() throws InterruptedException {
-        registry.registerServiceProvider("192.168.1.120:8000",
+    public void registerServiceProvider() throws InterruptedException {
+        registry.registerServiceProvider("192.168.1.120:80001",
                 Arrays.asList("com.grady.HelloService", "com.grady.WorldService"));
         System.out.println("success");
 
