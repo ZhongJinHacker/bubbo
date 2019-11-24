@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -20,7 +22,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ServiceDiscovery implements BeanPostProcessor {
+/**
+ * 服务发现器
+ */
+public class ServiceDiscovery implements BeanPostProcessor, ApplicationListener<ContextRefreshedEvent> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(com.grady.bubbo.client.ServiceDiscovery.class);
 
@@ -32,13 +37,12 @@ public class ServiceDiscovery implements BeanPostProcessor {
 
     private RpcProxy rpcProxy;
 
-    /**
-     * zk链接
-     *
-     * @param registryAddress
-     */
+    private List<String> watcherInterfaces;
+
+
     public ServiceDiscovery(String registryAddress) {
         this.registryAddress = registryAddress;
+        watcherInterfaces = new ArrayList<>();
         rpcProxy = new RpcProxy(this);
     }
 
@@ -55,23 +59,30 @@ public class ServiceDiscovery implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("-------->Before postProcessBeforeInitialization");
         return bean;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        System.out.println("-------->After postProcessAfterInitialization");
         ReflectionUtils.doWithLocalFields(bean.getClass(), new ReflectionUtils.FieldCallback() {
             @Override
             public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
                 if (field.getDeclaredAnnotation(RpcReference.class) != null) {
-                    System.out.println("-----> bean: " + bean);
                     ReflectionUtils.makeAccessible(field);
                     ReflectionUtils.setField(field, bean, rpcProxy.create(field.getType()));
-                    System.out.println("----->  " + field.getType().getName());
+                    watcherInterfaces.add(field.getType().getName());
                 }
             }
         });
         return bean;
+    }
+
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        System.out.println("--------> onApplicationEvent :" + contextRefreshedEvent);
+        startWatchNodes(watcherInterfaces);
     }
 
     /**

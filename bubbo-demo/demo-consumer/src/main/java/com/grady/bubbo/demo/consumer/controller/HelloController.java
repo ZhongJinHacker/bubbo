@@ -1,9 +1,7 @@
 package com.grady.bubbo.demo.consumer.controller;
 
-import com.grady.bubbo.client.RpcProxy;
 import com.grady.bubbo.common.annotation.RpcReference;
 import com.grady.bubbo.demo.api.TestService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +17,6 @@ public class HelloController {
     @GetMapping("test")
     @ResponseBody
     public String test() {
-        //testService = rpcProxy.create(TestService.class);
         return testService.testHello();
     }
 }
