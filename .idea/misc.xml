@@ -13,6 +13,8 @@
         <option value="$PROJECT_DIR$/bubbo-demo/demo-consumer/pom.xml" />
         <option value="$PROJECT_DIR$/demo-provider/pom.xml" />
         <option value="$PROJECT_DIR$/demo-common-api/pom.xml" />
+        <option value="$PROJECT_DIR$/bubbo-demo/demo-common-api/pom.xml" />
+        <option value="$PROJECT_DIR$/bubbo-demo/demo-provider/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
