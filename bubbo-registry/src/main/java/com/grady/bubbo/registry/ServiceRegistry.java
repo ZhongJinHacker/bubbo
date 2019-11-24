@@ -1,9 +1,12 @@
 package com.grady.bubbo.registry;
 
+import com.grady.bubbo.common.constants.ErrorCode;
+import com.grady.bubbo.common.exceptions.BubboException;
 import org.apache.zookeeper.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -25,20 +28,6 @@ public class ServiceRegistry {
     }
 
     /**
-     * 创建zookeeper链接
-     *
-     * @param data
-     */
-    public void register(String data) {
-        if (data != null) {
-            ZooKeeper zk = connectServer();
-            if (zk != null) {
-                createNode(zk, data);
-            }
-        }
-    }
-
-    /**
      * 创建zookeeper链接，监听
      *
      * @return
@@ -57,29 +46,46 @@ public class ServiceRegistry {
             latch.await();
         } catch (Exception e) {
             LOGGER.error("", e);
+            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "连接Zookeeper失败");
+        }
+        if (zk == null) {
+            throw new BubboException(ErrorCode.ZK_LINK_FAIL, "连接Zookeeper失败");
         }
         return zk;
     }
 
-    /**
-     * 创建节点
-     *
-     * @param zk
-     * @param data
-     */
-    private void createNode(ZooKeeper zk, String data) {
+    private void createNode(ZooKeeper zk,  String interfaceName, String address) {
         try {
-            byte[] bytes = data.getBytes();
+
             if (zk.exists(Constant.ZK_REGISTRY_PATH, null) == null) {
                 zk.create(Constant.ZK_REGISTRY_PATH, null, ZooDefs.Ids.OPEN_ACL_UNSAFE,
                         CreateMode.PERSISTENT);
             }
 
-            String path = zk.create(Constant.ZK_DATA_PATH, bytes,
+            final String INTERFACE_PATH = Constant.ZK_REGISTRY_PATH + "/" + interfaceName;
+            if (zk.exists(INTERFACE_PATH, null) == null) {
+                 zk.create(INTERFACE_PATH,
+                        null,
+                        ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                        CreateMode.PERSISTENT);
+            }
+
+            final String NODE_PATH = INTERFACE_PATH + Constant.ZK_DATA_PATH;
+            String path = zk.create(NODE_PATH, address.getBytes(),
                     ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-            LOGGER.debug("create zookeeper node ({} => {})", path, data);
+            LOGGER.debug("create zookeeper node ({} => {})", path, address);
         } catch (Exception e) {
-            LOGGER.error("", e);
+            LOGGER.error("创建节点失败", e);
+            throw new BubboException(ErrorCode.CREATE_FAIL, "创建节点失败");
         }
+    }
+
+    private void register(String hostAddress, String interfaceName) {
+        ZooKeeper zk = connectServer();
+        createNode(zk, interfaceName, hostAddress);
+    }
+
+    public void registerServiceProvider(String hostAddress, List<String> providerInterfaces) {
+        providerInterfaces.forEach(providerInterface -> register(hostAddress, providerInterface));
     }
 }

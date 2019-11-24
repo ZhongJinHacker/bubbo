@@ -41,14 +41,10 @@
       <groupId>com.dyuproject.protostuff</groupId>
       <artifactId>protostuff-runtime</artifactId>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>io.protostuff</groupId>-->
-<!--      <artifactId>protostuff-core</artifactId>-->
-<!--    </dependency>-->
-<!--    <dependency>-->
-<!--      <groupId>io.protostuff</groupId>-->
-<!--      <artifactId>protostuff-runtime</artifactId>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
 
   </dependencies>
 </project>

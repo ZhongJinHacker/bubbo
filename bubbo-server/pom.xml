@@ -42,6 +42,11 @@
       <groupId>com.grady.bubbo</groupId>
       <artifactId>bubbo-common</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>com.grady.bubbo</groupId>
+      <artifactId>bubbo-registry</artifactId>
+    </dependency>
   </dependencies>
 
 </project>

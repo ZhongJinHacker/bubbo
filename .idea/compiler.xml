@@ -6,12 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bubbo-server" />
         <module name="bubbo-common" />
+        <module name="bubbo-server" />
+        <module name="bubbo-client" />
         <module name="bubbo-registry" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
+      <module name="bubbo-client" target="1.8" />
       <module name="bubbo-common" target="1.8" />
       <module name="bubbo-parent" target="1.8" />
       <module name="bubbo-registry" target="1.8" />
