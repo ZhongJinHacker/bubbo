@@ -46,9 +46,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
         Map<String, Object> serviceBeanMap = ctx.getBeansWithAnnotation(RpcService.class);
         if (!MapUtils.isEmpty(serviceBeanMap)) {
             for (Object serviceBean : serviceBeanMap.values()) {
-                // 这里是一个修改点，直接获取其父类的名字
-                String interfaceName = serviceBean.getClass()
-                        .getAnnotation(RpcService.class).value().getName();
+                String interfaceName = serviceBean.getClass().getInterfaces()[0].getName();
                 handlerMap.put(interfaceName, serviceBean);
             }
         }
