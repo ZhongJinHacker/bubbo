@@ -2,7 +2,6 @@ package com.grady.bubbo.client;
 
 import com.grady.bubbo.common.model.RpcRequest;
 import com.grady.bubbo.common.model.RpcResponse;
-import com.grady.bubbo.registry.ServiceDiscovery;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

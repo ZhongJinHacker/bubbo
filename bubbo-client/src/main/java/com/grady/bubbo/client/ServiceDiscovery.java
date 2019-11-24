@@ -1,7 +1,9 @@
-package com.grady.bubbo.registry;
+package com.grady.bubbo.client;
 
+import com.grady.bubbo.common.annotation.RpcReference;
 import com.grady.bubbo.common.constants.ErrorCode;
 import com.grady.bubbo.common.exceptions.BubboException;
+import com.grady.bubbo.registry.Constant;
 import org.apache.commons.lang.StringUtils;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
@@ -9,27 +11,26 @@ import org.apache.zookeeper.ZooKeeper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * @author gradyjiang
- * @Date 2019/11/23 - 下午5:35
- */
-public class ServiceDiscovery implements ApplicationContextAware {
+public class ServiceDiscovery implements BeanPostProcessor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceDiscovery.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(com.grady.bubbo.client.ServiceDiscovery.class);
 
     private CountDownLatch latch = new CountDownLatch(1);
 
     private Map<String, List<String>> interfaceNodeMap = new ConcurrentHashMap<>();
 
     private String registryAddress;
+
+    private RpcProxy rpcProxy;
 
     /**
      * zk链接
@@ -38,6 +39,7 @@ public class ServiceDiscovery implements ApplicationContextAware {
      */
     public ServiceDiscovery(String registryAddress) {
         this.registryAddress = registryAddress;
+        rpcProxy = new RpcProxy(this);
     }
 
     /**
@@ -52,9 +54,24 @@ public class ServiceDiscovery implements ApplicationContextAware {
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        //TODO: 找到所有@RpcReference 的引用对象，然后调用开始监听
-        //applicationContext.getBean
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        ReflectionUtils.doWithLocalFields(bean.getClass(), new ReflectionUtils.FieldCallback() {
+            @Override
+            public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
+                if (field.getDeclaredAnnotation(RpcReference.class) != null) {
+                    System.out.println("-----> bean: " + bean);
+                    ReflectionUtils.makeAccessible(field);
+                    ReflectionUtils.setField(field, bean, rpcProxy.create(field.getType()));
+                    System.out.println("----->  " + field.getType().getName());
+                }
+            }
+        });
+        return bean;
     }
 
     /**
@@ -139,3 +156,4 @@ public class ServiceDiscovery implements ApplicationContextAware {
         }
     }
 }
+

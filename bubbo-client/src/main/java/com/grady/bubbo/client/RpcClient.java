@@ -45,16 +45,13 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
                         @Override
                         public void initChannel(SocketChannel channel)
                                 throws Exception {
-                            // 向pipeline中添加编码、解码、业务处理的handler
                             channel.pipeline()
-                                    .addLast(new RpcEncoder(RpcRequest.class))  //OUT - 1
-                                    .addLast(new RpcDecoder(RpcResponse.class)) //IN - 1
-                                    .addLast(RpcClient.this);                   //IN - 2
+                                    .addLast(new RpcEncoder(RpcRequest.class))
+                                    .addLast(new RpcDecoder(RpcResponse.class))
+                                    .addLast(RpcClient.this);
                         }
                     }).option(ChannelOption.SO_KEEPALIVE, true);
-            // 链接服务器
             ChannelFuture future = bootstrap.connect(host, port).sync();
-            //将request对象写入outbundle处理后发出（即RpcEncoder编码器）
             future.channel().writeAndFlush(request).sync();
 
             // 用线程等待的方式决定是否关闭连接
