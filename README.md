@@ -1,8 +1,7 @@
 
 
-<div aligin=center>
-  ![](https://raw.githubusercontent.com/ZhongJinHacker/bubbo/master/img-folder/projecy-icon.png)
-</div>
+![](https://raw.githubusercontent.com/ZhongJinHacker/bubbo/master/img-folder/projecy-icon.png)
+
 
 
 
