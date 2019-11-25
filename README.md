@@ -20,7 +20,7 @@
 
 **Bubbo**在Zookeeper上注册的节点目录与**Dubbo**基本一致，如图：
 
-
+![](https://raw.githubusercontent.com/ZhongJinHacker/bubbo/master/img-folder/zk_bubbo.png)
 
 
 
@@ -94,7 +94,9 @@ public class AppConfig {
 
 
 
-#####服务提供者 使用`RpcService`注解进行标注
+#####服务提供者 
+
+#####使用`RpcService`注解进行标注
 
 ```java
 @RpcService
@@ -107,7 +109,9 @@ public class TestServiceImpl implements TestService {
 }
 ```
 
-#####服务消费者 使用`RpcReference`注解进行标注
+#####服务消费者
+
+#####使用`RpcReference`注解进行标注
 
 ```java
 @RestController
@@ -125,3 +129,10 @@ public class HelloController {
 }
 ```
 
+
+
+#### 整理的参考资料
+
+[Netty 组件类关系图](https://raw.githubusercontent.com/ZhongJinHacker/bubbo/master/img-folder/Netty_class_relative.jpg)
+
+[Netty官方文档 Getting Start 翻译](https://github.com/ZhongJinHacker/notes/blob/master/Netty%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C%E7%BF%BB%E8%AF%91.md)
