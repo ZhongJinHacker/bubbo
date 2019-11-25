@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/bubbo-all/bubbo-all.iml" filepath="$PROJECT_DIR$/bubbo-all/bubbo-all.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bubbo-all/bubbo.iml" filepath="$PROJECT_DIR$/bubbo-all/bubbo.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-client/bubbo-client.iml" filepath="$PROJECT_DIR$/bubbo-client/bubbo-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-common/bubbo-common.iml" filepath="$PROJECT_DIR$/bubbo-common/bubbo-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bubbo-demo/bubbo-demo.iml" filepath="$PROJECT_DIR$/bubbo-demo/bubbo-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-parent/bubbo-parent.iml" filepath="$PROJECT_DIR$/bubbo-parent/bubbo-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-registry/bubbo-registry.iml" filepath="$PROJECT_DIR$/bubbo-registry/bubbo-registry.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-server/bubbo-server.iml" filepath="$PROJECT_DIR$/bubbo-server/bubbo-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bubbo-demo/demo-common-api/demo-common-api.iml" filepath="$PROJECT_DIR$/bubbo-demo/demo-common-api/demo-common-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bubbo-demo/demo-consumer/demo-consumer.iml" filepath="$PROJECT_DIR$/bubbo-demo/demo-consumer/demo-consumer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bubbo-demo/demo-provider/demo-provider.iml" filepath="$PROJECT_DIR$/bubbo-demo/demo-provider/demo-provider.iml" />
     </modules>
   </component>
 </project>
