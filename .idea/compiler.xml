@@ -6,11 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bubbo-client" />
-        <module name="bubbo-server" />
+        <module name="demo-consumer" />
         <module name="bubbo-common" />
+        <module name="demo-common-api" />
+        <module name="demo-provider" />
         <module name="bubbo" />
+        <module name="bubbo-server" />
         <module name="bubbo-registry" />
+        <module name="bubbo-client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,6 +23,15 @@
       <module name="bubbo-parent" target="1.8" />
       <module name="bubbo-registry" target="1.8" />
       <module name="bubbo-server" target="1.8" />
+      <module name="demo-common-api" target="1.8" />
+      <module name="demo-consumer" target="1.8" />
+      <module name="demo-provider" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="demo-consumer" options="-parameters" />
+      <module name="demo-provider" options="-parameters" />
+    </option>
   </component>
 </project>

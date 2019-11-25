@@ -9,8 +9,11 @@
         <option value="$PROJECT_DIR$/bubbo-parent/pom.xml" />
         <option value="$PROJECT_DIR$/bubbo-registry/pom.xml" />
         <option value="$PROJECT_DIR$/bubbo-server/pom.xml" />
+        <option value="$PROJECT_DIR$/bubbo-demo/demo-common-api/pom.xml" />
+        <option value="$PROJECT_DIR$/bubbo-demo/demo-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/bubbo-demo/demo-consumer/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

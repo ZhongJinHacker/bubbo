@@ -8,6 +8,9 @@
       <module fileurl="file://$PROJECT_DIR$/bubbo-parent/bubbo-parent.iml" filepath="$PROJECT_DIR$/bubbo-parent/bubbo-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-registry/bubbo-registry.iml" filepath="$PROJECT_DIR$/bubbo-registry/bubbo-registry.iml" />
       <module fileurl="file://$PROJECT_DIR$/bubbo-server/bubbo-server.iml" filepath="$PROJECT_DIR$/bubbo-server/bubbo-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bubbo-demo/demo-common-api/demo-common-api.iml" filepath="$PROJECT_DIR$/bubbo-demo/demo-common-api/demo-common-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bubbo-demo/demo-consumer/demo-consumer.iml" filepath="$PROJECT_DIR$/bubbo-demo/demo-consumer/demo-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bubbo-demo/demo-provider/demo-provider.iml" filepath="$PROJECT_DIR$/bubbo-demo/demo-provider/demo-provider.iml" />
     </modules>
   </component>
 </project>

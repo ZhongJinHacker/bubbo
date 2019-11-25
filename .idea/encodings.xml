@@ -4,6 +4,9 @@
     <file url="file://$PROJECT_DIR$/bubbo-all" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bubbo-client" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bubbo-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bubbo-demo/demo-common-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bubbo-demo/demo-consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bubbo-demo/demo-provider" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bubbo-parent" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bubbo-registry" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/bubbo-server" charset="UTF-8" />
